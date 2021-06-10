@@ -1,28 +1,20 @@
 
-var crash = new Audio("./sounds/crash.mp3");
-var kickBass = new Audio("./sounds/kick-bass.mp3");
-var snare = new Audio("./sounds/snar.mp3");
-var tom1 = new Audio("./sounds/tom-1.mp3");
-var tom2 = new Audio("./sounds/tom-2.mp3");
-var tom3 = new Audio("./sounds/tom-3.mp3");
-var tom4 = new Audio("./sounds/tom-4.mp3");
-
-
-
 // Detectiong Button Press
-
 var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 for (var i = 0; i < numberOfDrumButtons; i++) {
   document.querySelectorAll(".drum")[i].addEventListener('click', function () {
     var buttonInnerHTML = this.innerHTML;
+
     makeSound(buttonInnerHTML);
+
+    buttonAnimation(buttonInnerHTML);
+
   })
 }
-
-
 // Detecting Key Press
 document.addEventListener('keydown', function () {
   makeSound(event.key);
+  buttonAnimation(event.key);
 })
 
 function makeSound(key) {
@@ -62,5 +54,13 @@ function makeSound(key) {
   }
 }
 
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector(`.${currentKey}`);
 
+  activeButton.classList.add("pressed");
+
+  setTimeout(function () {
+    activeButton.classList.remove('pressed');
+  }, 100)
+}
 
